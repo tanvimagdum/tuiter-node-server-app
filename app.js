@@ -12,15 +12,12 @@ app.use(
       secret: "any string",
       resave: false,
       saveUninitialized: true,
-      store: new session.MemoryStore(),
     })
 );   
 
-
+app.use(cors());
 app.use((req, res, next) => {
-  const allowedOrigins = ["http://localhost:3000", 
-                          "https://a5--rococo-cuchufli-ca0ad3.netlify.app",
-                          "https://tuiter-node-server-app-0d8y.onrender.com/api"];
+  const allowedOrigins = ["http://localhost:3000", "https://a5--rococo-cuchufli-ca0ad3.netlify.app"];
   const origin = req.headers.origin;
 
   if (allowedOrigins.includes(origin)) {
