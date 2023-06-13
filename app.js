@@ -15,7 +15,7 @@ app.use(
     })
 );   
 
-app.use(cors());
+
 app.use((req, res, next) => {
   const allowedOrigins = ["http://localhost:3000", "https://a5--rococo-cuchufli-ca0ad3.netlify.app"];
   const origin = req.headers.origin;
