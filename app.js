@@ -36,6 +36,7 @@ app.use(express.json());
 
 // mongoose.connect("mongodb://127.0.0.1:27017/tuiter");
 const CONNECTION_STRING = process.env.DB_CONNECTION_STRING;
+console.log(CONNECTION_STRING);
 mongoose.connect(CONNECTION_STRING)
 .then(() => {
   console.log("Connected to MongoDB Atlas");
