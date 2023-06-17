@@ -18,9 +18,7 @@ app.use(
 
 
 app.use((req, res, next) => {
-  const allowedOrigins = ["http://localhost:3000", 
-  "https://a6--rococo-cuchufli-ca0ad3.netlify.app",
-  "https://tuiter-node-server-app-0d8y.onrender.com"];
+  const allowedOrigins = ["http://localhost:3000","https://a6--rococo-cuchufli-ca0ad3.netlify.app","https://tuiter-node-server-app-0d8y.onrender.com"];
   const origin = req.headers.origin;
 
   if (allowedOrigins.includes(origin)) {
@@ -37,8 +35,14 @@ app.use((req, res, next) => {
 app.use(express.json());
 
 // mongoose.connect("mongodb://127.0.0.1:27017/tuiter");
-const CONNECTION_STRING = process.env.DB_CONNECTION_STRING || 'mongodb://127.0.0.1:27017/tuiter'
-mongoose.connect(CONNECTION_STRING);
+const CONNECTION_STRING = process.env.DB_CONNECTION_STRING || 'mongodb://127.0.0.1:27017/tuiter';
+mongoose.connect(CONNECTION_STRING)
+.then(() => {
+  console.log("Connected to MongoDB Atlas");
+})
+.catch((error) => {
+  console.log("Error connecting to MongoDB Atlas:", error);
+});
 
 TuitsController(app);
 HelloController(app);
