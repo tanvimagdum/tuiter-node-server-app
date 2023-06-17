@@ -17,12 +17,11 @@ app.use(
 );   
 
 app.use((req, res, next) => {
-  const allowedOrigins = ["http://localhost:3000","https://a6--rococo-cuchufli-ca0ad3.netlify.app","https://tuiter-node-server-app-0d8y.onrender.com/api"];
+  const allowedOrigins = ["http://localhost:3000","https://a6--rococo-cuchufli-ca0ad3.netlify.app"];
   const origin = req.headers.origin;
 
   if (allowedOrigins.includes(origin)) {
       res.header("Access-Control-Allow-Origin", origin);
-      console.log(origin);
   }
 
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
