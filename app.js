@@ -6,27 +6,20 @@ import UserController from "./users/users-controller.js";
 import TuitsController from "./controllers/tuits/tuits-controller.js";
 import AuthController from "./users/auth-controller.js";
 import mongoose from "mongoose";
-import MongoStore from 'connect-mongo';
 
 const app = express();
-
-const CONNECTION_STRING = process.env.DB_CONNECTION_STRING;
-console.log(CONNECTION_STRING);
-
 app.use(
     session({
-      store: MongoStore.create({
-        mongoUrl: CONNECTION_STRING,
-        mongoOptions: {
-          useNewUrlParser: true,
-          useUnifiedTopology: true,
-        }
-      }),
       secret: "any string",
       resave: false,
-      saveUninitialized: true,
+      proxy: true,
+      saveUninitialized: false,
+      cookie: {
+        sameSite: "none",
+        secure: true
+      }
     })
-);   
+);    
 
 app.use((req, res, next) => {
   const allowedOrigins = ["http://localhost:3000","https://a6--rococo-cuchufli-ca0ad3.netlify.app"];
@@ -46,11 +39,9 @@ app.use((req, res, next) => {
 app.use(express.json());
 
 // mongoose.connect("mongodb://127.0.0.1:27017/tuiter");
-
-mongoose.connect(CONNECTION_STRING, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-})
+const CONNECTION_STRING = process.env.DB_CONNECTION_STRING;
+console.log(CONNECTION_STRING);
+mongoose.connect(CONNECTION_STRING)
 .then(() => {
   console.log("Connected to MongoDB Atlas");
 })
